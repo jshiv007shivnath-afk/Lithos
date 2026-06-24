@@ -1,0 +1,47 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile containing educational and stratigraphic records",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique identifier of the user" },
+        "email": { "type": "string", "format": "email", "description": "The email address of the user" },
+        "displayName": { "type": "string", "description": "The display name of the user" },
+        "enrolledCourses": { "type": "array", "description": "IDs of enrolled courses" },
+        "activeSubscription": { "type": "string", "description": "Subscription plan ID, if active" },
+        "savedSites": { "type": "array", "description": "Rock ID or site ID bookmarks" },
+        "balance": { "type": "number", "description": "Remaining Lithos credits" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Account creation timestamp" }
+      },
+      "required": ["uid", "email", "enrolledCourses", "savedSites", "balance", "createdAt"]
+    },
+    "PaymentReceipt": {
+      "title": "PaymentReceipt",
+      "description": "Receipt of payment for a course or subscription plan",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Receipt ID" },
+        "userId": { "type": "string", "description": "Buyer user ID" },
+        "itemType": { "type": "string", "enum": ["course", "subscription"], "description": "Type of item purchased" },
+        "itemId": { "type": "string", "description": "The purchased item ID" },
+        "itemName": { "type": "string", "description": "The purchased item name" },
+        "amount": { "type": "number", "description": "Amount paid" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Transaction timestamp" },
+        "cardLast4": { "type": "string", "description": "Last 4 digits of payment card" },
+        "status": { "type": "string", "enum": ["success", "failed"], "description": "Transaction status" }
+      },
+      "required": ["id", "userId", "itemType", "itemId", "itemName", "amount", "timestamp", "cardLast4", "status"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "receipts/{receiptId}": {
+      "schema": "PaymentReceipt",
+      "description": "Receipt logs for audit trail"
+    }
+  }
+}

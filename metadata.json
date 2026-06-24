@@ -1,0 +1,6 @@
+{
+  "name": "Lithos",
+  "description": "An interactive, deep-time geological exploration platform with real-time layer mapping, courses, live field tours, and geological plans.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
